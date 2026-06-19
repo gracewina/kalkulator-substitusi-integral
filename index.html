@@ -97,6 +97,18 @@
             margin-top: 10px;
         }
     </style>
+
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/MathJax.js?config=TeX-mml-chtml"></script>
 </head>
@@ -126,7 +138,7 @@
                 <label for="input-n">Pangkat ($n$):</label>
                 <input type="number" id="input-n" value="3" placeholder="Contoh: 3">
             </div>
-            <button onclick="hitungIntegralSubstitusi()">Hitung Integral $\int$</button>
+            <button onclick="hitungIntegralSubstitusi()">Hitung Integral &int;</button>
         </div>
 
         <div id="hasil-box" class="hasil-box" style="display: none;">
@@ -156,11 +168,11 @@
             const pangkatBaru = n + 1;
             const koefisienAkhir = koefisienLuar / pangkatBaru;
 
-            // Generate teks penjelasan dengan format kode LaTeX untuk MathJax (termasuk simbol \int)
+            // Generate teks penjelasan dengan format kode LaTeX untuk MathJax
             let langkahHtml = `
                 <p><strong>1. Pemisalan:</strong></p>
                 <p>Misalkan $u = x^2 + ${b}$</p>
-                <p>Turunan dari $u$ adalah: $du = 2x \, dx \implies x \, dx = \\frac{du}{2}$</p>
+                <p>Turunan dari $u$ adalah: $du = 2x \, dx \\implies x \, dx = \\frac{du}{2}$</p>
                 
                 <p><strong>2. Substitusi ke dalam bentuk $\\int$:</strong></p>
                 <p>$$\\int ${a}x (x^2 + ${b})^{${n}} \, dx = \\int ${a} \\cdot u^{${n}} \\cdot \\frac{du}{2}$$</p>
@@ -174,15 +186,17 @@
             if (Number.isInteger(koefisienAkhir)) {
                 hasilHtml = `$$${koefisienAkhir}(x^2 + ${b})^{${pangkatBaru}} + C$$`;
             } else {
-                // Menampilkan pecahan jika hasilnya desimal tidak bulat
+                // Menampilkan pecahan atau hasil pembagian yang rapi
                 hasilHtml = `$$\\frac{${koefisienLuar}}{${pangkatBaru}} (x^2 + ${b})^{${pangkatBaru}} + C$$`;
             }
 
             document.getElementById('langkah-langkah').innerHTML = langkahHtml;
             document.getElementById('hasil-akhir').innerHTML = hasilHtml;
 
-            // Memperbarui MathJax agar merender simbol teks baru menjadi lambang integral asli
-            MathJax.typeset();
+            // Memastikan MathJax memproses ulang komponen HTML baru agar simbol matematika dirender ulang
+            if (window.MathJax && window.MathJax.typeset) {
+                window.MathJax.typeset();
+            }
         }
     </script>
 </body>
