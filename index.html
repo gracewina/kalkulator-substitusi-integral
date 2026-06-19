@@ -102,15 +102,15 @@
         window.MathJax = {
             tex: {
                 inlineMath: [['$', '$'], ['\\(', '\\)']],
-                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true
             },
-            svg: {
-                fontCache: 'global'
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
             }
         };
     </script>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/MathJax.js?config=TeX-mml-chtml"></script>
+    <script id="MathJax-script" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js"></script>
 </head>
 <body>
 
@@ -127,15 +127,15 @@
 
         <div class="input-group">
             <div class="input-field">
-                <label for="input-a">Nilai koefisien luar ($a$):</label>
+                <label for="input-a">Nilai koefisien luar (a):</label>
                 <input type="number" id="input-a" value="2" placeholder="Contoh: 2">
             </div>
             <div class="input-field">
-                <label for="input-b">Nilai konstanta dalam ($b$):</label>
+                <label for="input-b">Nilai konstanta dalam (b):</label>
                 <input type="number" id="input-b" value="5" placeholder="Contoh: 5">
             </div>
             <div class="input-field">
-                <label for="input-n">Pangkat ($n$):</label>
+                <label for="input-n">Pangkat (n):</label>
                 <input type="number" id="input-n" value="3" placeholder="Contoh: 3">
             </div>
             <button onclick="hitungIntegralSubstitusi()">Hitung Integral &int;</button>
@@ -160,15 +160,12 @@
                 return;
             }
 
-            // Tampilkan container hasil
             document.getElementById('hasil-box').style.display = 'block';
 
-            // Menghitung komponen matematika u-substitution
             const koefisienLuar = a / 2;
             const pangkatBaru = n + 1;
             const koefisienAkhir = koefisienLuar / pangkatBaru;
 
-            // Generate teks penjelasan dengan format kode LaTeX untuk MathJax
             let langkahHtml = `
                 <p><strong>1. Pemisalan:</strong></p>
                 <p>Misalkan $u = x^2 + ${b}$</p>
@@ -186,14 +183,13 @@
             if (Number.isInteger(koefisienAkhir)) {
                 hasilHtml = `$$${koefisienAkhir}(x^2 + ${b})^{${pangkatBaru}} + C$$`;
             } else {
-                // Menampilkan pecahan atau hasil pembagian yang rapi
                 hasilHtml = `$$\\frac{${koefisienLuar}}{${pangkatBaru}} (x^2 + ${b})^{${pangkatBaru}} + C$$`;
             }
 
             document.getElementById('langkah-langkah').innerHTML = langkahHtml;
             document.getElementById('hasil-akhir').innerHTML = hasilHtml;
 
-            // Memastikan MathJax memproses ulang komponen HTML baru agar simbol matematika dirender ulang
+            // KUNCI PERBAIKAN 3: Memaksa render ulang teks matematika baru secara aman
             if (window.MathJax && window.MathJax.typeset) {
                 window.MathJax.typeset();
             }
