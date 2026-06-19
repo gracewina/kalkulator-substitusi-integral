@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator Integral Substitusi - Gracewinna</title>
+    <style>
+        /* Desain responsif agar pas di layar HP dan Komputer */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f6f9;
+            color: #333;
+            margin: 0;
+            padding: 15px;
+        }
+        .container {
+            max-width: 500px;
+            margin: 20px auto;
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+        .author {
+            text-align: center;
+            color: #7f8c8d;
+            margin-bottom: 25px;
+            font-size: 0.95rem;
+        }
+        .info-box {
+            background-color: #e8f4f8;
+            border-left: 5px solid #3498db;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            font-size: 1rem;
+        }
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .input-field {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        label {
+            font-weight: 600;
+            color: #34495e;
+            font-size: 0.9rem;
+        }
+        input {
+            padding: 12px;
+            border: 1px solid #bdc3c7;
+            border-radius: 8px;
+            font-size: 1rem;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #2ecc71;
+            color: white;
+            border: none;
+            padding: 14px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s ease;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #27ae60;
+        }
+        .hasil-box {
+            margin-top: 25px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+        }
+        .final-result {
+            font-size: 1.3rem;
+            color: #c0392b;
+            font-weight: bold;
+            text-align: center;
+            padding: 12px;
+            background: #fadbd8;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+    </style>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/MathJax.js?config=TeX-mml-chtml"></script>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Kalkulator Integral Substitusi</h1>
+        <div class="author">Dibuat oleh: <strong>Gracewinna</strong></div>
+        
+        <div class="info-box">
+            Menghitung otomatis soal integral substitusi dengan format lambang matematika:<br>
+            <div style="text-align: center; margin-top: 8px; font-size: 1.2rem;">
+                $$\int a \cdot x \cdot (x^2 + b)^n \, dx$$
+            </div>
+        </div>
+
+        <div class="input-group">
+            <div class="input-field">
+                <label for="input-a">Nilai koefisien luar ($a$):</label>
+                <input type="number" id="input-a" value="2" placeholder="Contoh: 2">
+            </div>
+            <div class="input-field">
+                <label for="input-b">Nilai konstanta dalam ($b$):</label>
+                <input type="number" id="input-b" value="5" placeholder="Contoh: 5">
+            </div>
+            <div class="input-field">
+                <label for="input-n">Pangkat ($n$):</label>
+                <input type="number" id="input-n" value="3" placeholder="Contoh: 3">
+            </div>
+            <button onclick="hitungIntegralSubstitusi()">Hitung Integral $\int$</button>
+        </div>
+
+        <div id="hasil-box" class="hasil-box" style="display: none;">
+            <h3 style="margin-top: 0; color: #2c3e50;">Langkah Penyelesaian:</h3>
+            <div id="langkah-langkah"></div>
+            <h3 style="margin-bottom: 5px; color: #2c3e50;">Hasil Akhir:</h3>
+            <div id="hasil-akhir" class="final-result"></div>
+        </div>
+    </div>
+
+    <script>
+        function hitungIntegralSubstitusi() {
+            const a = parseFloat(document.getElementById('input-a').value);
+            const b = parseFloat(document.getElementById('input-b').value);
+            const n = parseFloat(document.getElementById('input-n').value);
+
+            if (isNaN(a) || isNaN(b) || isNaN(n)) {
+                alert("Mohon masukkan semua parameter angka dengan benar.");
+                return;
+            }
+
+            // Tampilkan container hasil
+            document.getElementById('hasil-box').style.display = 'block';
+
+            // Menghitung komponen matematika u-substitution
+            const koefisienLuar = a / 2;
+            const pangkatBaru = n + 1;
+            const koefisienAkhir = koefisienLuar / pangkatBaru;
+
+            // Generate teks penjelasan dengan format kode LaTeX untuk MathJax (termasuk simbol \int)
+            let langkahHtml = `
+                <p><strong>1. Pemisalan:</strong></p>
+                <p>Misalkan $u = x^2 + ${b}$</p>
+                <p>Turunan dari $u$ adalah: $du = 2x \, dx \implies x \, dx = \\frac{du}{2}$</p>
+                
+                <p><strong>2. Substitusi ke dalam bentuk $\\int$:</strong></p>
+                <p>$$\\int ${a}x (x^2 + ${b})^{${n}} \, dx = \\int ${a} \\cdot u^{${n}} \\cdot \\frac{du}{2}$$</p>
+                <p>$$= ${koefisienLuar} \\int u^{${n}} \, du$$</p>
+                
+                <p><strong>3. Integralkan terhadap $u$:</strong></p>
+                <p>$$= ${koefisienLuar} \\cdot \\frac{1}{${pangkatBaru}} u^{${pangkatBaru}} + C$$</p>
+            `;
+
+            let hasilHtml = "";
+            if (Number.isInteger(koefisienAkhir)) {
+                hasilHtml = `$$${koefisienAkhir}(x^2 + ${b})^{${pangkatBaru}} + C$$`;
+            } else {
+                // Menampilkan pecahan jika hasilnya desimal tidak bulat
+                hasilHtml = `$$\\frac{${koefisienLuar}}{${pangkatBaru}} (x^2 + ${b})^{${pangkatBaru}} + C$$`;
+            }
+
+            document.getElementById('langkah-langkah').innerHTML = langkahHtml;
+            document.getElementById('hasil-akhir').innerHTML = hasilHtml;
+
+            // Memperbarui MathJax agar merender simbol teks baru menjadi lambang integral asli
+            MathJax.typeset();
+        }
+    </script>
+</body>
+</html>
