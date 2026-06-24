@@ -3,309 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kalkulator Integral Substitusi Universal - Gracewinna</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4f6f9;
-            color: #333;
-            margin: 0;
-            padding: 15px;
-        }
-        .container {
-            max-width: 600px;
-            margin: 20px auto;
-            background: #ffffff;
-            padding: 25px;
-            border-radius: 15px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.06);
-        }
-        h1 {
-            color: #2c3e50;
-            text-align: center;
-            font-size: 1.6rem;
-            margin-bottom: 5px;
-        }
-        .author {
-            text-align: center;
-            color: #7f8c8d;
-            margin-bottom: 25px;
-            font-size: 0.95rem;
-        }
-        .info-box {
-            background-color: #e8f4f8;
-            border-left: 5px solid #3498db;
-            padding: 15px;
-            border-radius: 6px;
-            margin-bottom: 20px;
-            font-size: 0.9rem;
-            line-height: 1.5;
-        }
-        .input-group {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-        label {
-            font-weight: 600;
-            color: #34495e;
-            font-size: 0.95rem;
-        }
-        input {
-            padding: 12px;
-            border: 1px solid #bdc3c7;
-            border-radius: 8px;
-            font-size: 1.1rem;
-            width: 100%;
-            box-sizing: border-box;
-        }
-        .hint {
-            font-size: 0.8rem;
-            color: #7f8c8d;
-            margin-top: 5px;
-        }
-        button {
-            background-color: #2ecc71;
-            color: white;
-            border: none;
-            padding: 14px;
-            font-size: 1rem;
-            font-weight: bold;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background 0.2s ease;
-        }
-        button:hover {
-            background-color: #27ae60;
-        }
-        .hasil-box {
-            margin-top: 25px;
-            padding: 20px;
-            background-color: #f9f9f9;
-            border: 1px solid #e2e8f0;
-            border-radius: 10px;
-        }
-        .step-section {
-            margin-bottom: 15px;
-            border-bottom: 1px dashed #ddd;
-            padding-bottom: 10px;
-        }
-        .final-result {
-            font-size: 1.4rem;
-            color: #c0392b;
-            font-weight: bold;
-            text-align: center;
-            padding: 15px;
-            background: #fadbd8;
-            border-radius: 8px;
-            margin-top: 10px;
-        }
-    </style>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.8.0/math.js"></script>
-    
-    <script>
-        window.MathJax = {
-            tex: {
-                inlineMath: [['$', '$'], ['\\(', '\\)']],
-                displayMath: [['$$', '$$'], ['\\[', '\\]']],
-                processEscapes: true
-            }
-        };
-    </script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/MathJax.js?config=TeX-mml-chtml"></script>
+    <title>Kalkulator Integral Substitusi - Gracewinna</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/MathJax.js"></script>
 </head>
 <body>
 
-    <div class="container">
-        <h1>Kalkulator Integral Substitusi Universal</h1>
-        <div class="author">Dibuat oleh: <strong>Gracewinna</strong></div>
-        
-        <div class="info-box">
-            <strong>Cara Input Soal Bebas:</strong><br>
-            Gunakan tanda bintang (*) untuk perkalian dan tanda pangkat (^) untuk eksponen.<br>
-            • Contoh 1: <code>2*x * (x^2 + 5)^3</code><br>
-            • Contoh 2: <code>x * sin(x^2)</code><br>
-            • Contoh 3: <code>3 * x^2 * e^(x^3)</code>
-        </div>
+    <header>
+        <h1>Kalkulator Integral Substitusi</h1>
+        <p>Created by: <strong>Gracewinna</strong></p>
+    </header>
 
-        <div class="input-group">
-            <div>
-                <label for="fungsi-input">Masukkan Fungsi $f(x)$ yang akan diintegralkan:</label>
-                <input type="text" id="fungsi-input" value="2*x * (x^2 + 5)^3">
-                <div class="hint">Pastikan fungsi memiliki bagian yang merupakan turunan dari bagian lainnya (Aturan Substitusi $u$).</div>
-            </div>
+    <main class="container">
+        <section class="input-section">
+            <h3>Bentuk Umum: $\int (ax + b)^n dx$</h3>
+            <p>Masukkan nilai untuk fungsi integral substitusi linier:</p>
             
-            <div>
-                <label for="u-input">Tentukan bagian untuk pemisalan ($u$):</label>
-                <input type="text" id="u-input" value="x^2 + 5">
-                <div class="hint">Pilih bagian fungsi di dalam kurung/pangkat/sudut yang jika diturunkan bisa menyederhanakan variabel luar.</div>
+            <div class="form-group">
+                <label for="input-a">Nilai a (koefisien x):</label>
+                <input type="number" id="input-a" value="2" placeholder="Contoh: 2">
             </div>
 
-            <button onclick="hitungIntegralUniversal()">Hitung Integral &int;</button>
-        </div>
+            <div class="form-group">
+                <label for="input-b">Nilai b (konstanta):</label>
+                <input type="number" id="input-b" value="3" placeholder="Contoh: 3">
+            </div>
 
-        <div id="hasil-box" class="hasil-box" style="display: none;">
-            <h3 style="margin-top: 0; color: #2c3e50;">Langkah Penyelesaian:</h3>
+            <div class="form-group">
+                <label for="input-n">Pangkat n (bukan -1):</label>
+                <input type="number" id="input-n" value="5" placeholder="Contoh: 5">
+            </div>
+
+            <button onclick="hitungIntegral()">Hitung Langkah</button>
+        </section>
+
+        <section class="result-section" id="result-box" style="display: none;">
+            <h3>Langkah Penyelesaian:</h3>
             <div id="langkah-langkah"></div>
-            <h3 style="margin-bottom: 5px; color: #2c3e50;">Hasil Akhir:</h3>
-            <div id="hasil-akhir" class="final-result"></div>
-        </div>
-    </div>
+            
+            <button id="btn-copy" onclick="salinTeks()" style="display: none; background-color: #28a745; margin-top: 15px;">
+                Salin Langkah Penyelesaian
+            </button>
+        </section>
+    </main>
 
-    <script>
-        function hitungIntegralUniversal() {
-            const fungsiTeks = document.getElementById('fungsi-input').value.trim();
-            const uTeks = document.getElementById('u-input').value.trim();
+    <footer>
+        <p>&copy; 2026 Gracewinna. All Rights Reserved.</p>
+    </footer>
 
-            if (!fungsiTeks || !uTeks) {
-                alert("Mohon isi fungsi dan pemisalan u terlebih dahulu.");
-                return;
-            }
-
-            try {
-                // 1. Hitung turunan du/dx menggunakan math.js
-                const du = math.derivative(uTeks, 'x');
-                const duTeks = du.toString();
-                const duLatex = du.toTex();
-
-                // 2. Substitusi fungsi: Mengganti komponen uTeks dengan 'u' di dalam fungsi asli
-                // Kita buat fungsi dalam bentuk string yang siap diparsing
-                let fungsiNode = math.parse(fungsiTeks);
-                
-                // Cari tahu sisa faktor luar setelah disubstitusi du
-                // Secara teori: f(x) dx = g(u) * (du/dx) dx = g(u) du
-                // Maka g(u) = f(x) / (du/dx)
-                const sisaNode = math.simplify(`(${fungsiTeks}) / (${duTeks})`);
-                
-                // Ganti ekspresi uTeks di dalam sisaNode menjadi variabel 'u'
-                let g_u_teks = sisaNode.toString();
-                
-                // Mengganti uTeks dengan 'u' menggunakan regex (case insensitive dan menangani spasi)
-                const uRegex = new RegExp(uTeks.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'), 'g');
-                
-                // Kita evaluasi integrasi dasar g(u) terhadap u
-                // Untuk demo substitusi universal ini, kita dukung sisa konstanta atau fungsi u sederhana
-                let sisaSederhana = math.simplify(sisaNode.toString());
-                
-                // Cek apakah sisa pembagian f(x)/du menghasilkan fungsi dalam u yang valid
-                // Kita konversi sisa ke fungsi u dengan mengganti x^2+b menjadi u jika masih tersisa variabel x
-                let sisaSubstTeks = sisaSederhana.toString().replace(uRegex, 'u');
-                
-                // Jika masih mengandung x bebas yang tidak bisa dieliminasi, peringatkan user
-                if (sisaSubstTeks.includes('x')) {
-                    // Coba sederhanakan lagi secara aljabar
-                    let substitusiAlternatif = math.simplify(sisaSubstTeks, {x: `sqrt(u - (${math.simplify(uTeks + ' - x^2').toString()}))` });
-                    if(substitusiAlternatif.toString().includes('x')) {
-                        alert("Metode substitusi gagal atau pemisalan 'u' kurang tepat. Variabel 'x' tidak habis tereliminasi oleh du.");
-                        return;
-                    }
-                    sisaSubstTeks = substitusiAlternatif.toString();
-                }
-
-                // Tampilkan kotak hasil
-                document.getElementById('hasil-box').style.display = 'block';
-
-                // 3. Lakukan integral terhadap u secara simbolik (Aturan Pangkat / Trigonometri Dasar)
-                let hasilIntegralU_Latex = "";
-                let hasilIntegralX_Latex = "";
-                let parsedSisaU = math.simplify(sisaSubstTeks);
-                let sisaULatex = parsedSisaU.toTex();
-
-                // Deteksi otomatis integral dari bentuk standar u^n atau konstanta atau sin/cos
-                let f_u = parsedSisaU.toString();
-                
-                // Logika pencarian hasil integral integral komputasi sederhana
-                // Contoh: integral c * u^n du = (c / (n+1)) * u^(n+1)
-                let nodeU = math.parse(f_u);
-                
-                // Ganti kembali 'u' ke bentuk fungsi aslinya untuk hasil akhir
-                let latexUAsli = math.parse(uTeks).toTex();
-
-                // Pembuatan teks langkah penyelesaian otomatis
-                let langkahHtml = `
-                    <div class="step-section">
-                        <p><strong>1. Pemisalan dan Turunan ($u$):</strong></p>
-                        <p>Misalkan $u = ${math.parse(uTeks).toTex()}$</p>
-                        <p>Maka turunannya terhadap $x$ adalah:</p>
-                        <p>$$\\frac{du}{dx} = ${duLatex} \\implies dx = \\frac{du}{${duLatex}}$$</p>
-                    </div>
-                    
-                    <div class="step-section">
-                        <p><strong>2. Substitusi ke dalam bentuk Integral:</strong></p>
-                        <p>$$\\int ${math.parse(fungsiTeks).toTex()} \\, dx = \\int ${math.parse(fungsiTeks).toTex()} \\cdot \\frac{du}{${duLatex}}$$</p>
-                        <p>Setelah variabel $x$ disederhanakan dan diganti dengan $u$, bentuknya menjadi:</p>
-                        <p>$$\\int ${sisaULatex} \\, du$$</p>
-                    </div>
-                `;
-
-                // Kalkulasi Hasil Akhir secara Simbolik Berdasarkan Aturan Matematika
-                // Kasus 1: Konstanta kali u^n (Aturan Pangkat Umum)
-                if (f_u.includes('u') || !isNaN(f_u)) {
-                    // Integralkan bentuk aljabar menggunakan aturan integral math.js / aturan manual terprogram
-                    // Untuk keandalan tinggi, kita buat visualisasi langkah integrasi umum aturan pangkat:
-                    langkahHtml += `
-                        <div class="step-section">
-                            <p><strong>3. Integralkan terhadap $u$:</strong></p>
-                            <p>Gunakan aturan integral standar untuk fungsi $u$.</p>
-                        </div>
-                    `;
-                }
-
-                // Kalkulasi Hasil Akhir (Menggunakan parser cerdas Math.js untuk simplifikasi ekspresi integral)
-                // Di sini kita sediakan hasil cerdas bawaan untuk soal substitusi populer:
-                let hasilAkhirTeks = "";
-                
-                // Pendekatan parsing pola soal populer
-                if (fungsiTeks.includes('sin')) {
-                    hasilAkhirTeks = `-\\cos(${latexUAsli})`;
-                } else if (fungsiTeks.includes('cos')) {
-                    hasilAkhirTeks = `\\sin(${latexUAsli})`;
-                } else if (fungsiTeks.includes('e^')) {
-                    hasilAkhirTeks = `e^{${latexUAsli}}`;
-                } else {
-                    // Default aturan pangkat
-                    // f(x) = 2x * (x^2+5)^3 -> du = 2x -> sisa = 1 -> integral u^3 = 1/4 u^4
-                    // Kita cari koefisien konstan dari sisaULatex
-                    try {
-                        let koef = math.simplify(f_u.replace(/u\^[0-9.]+/g, '1').replace(/u/g, '1')).toString();
-                        let pangkat = 1;
-                        if (f_u.includes('u^')) {
-                            pangkat = parseFloat(f_u.split('u^')[1]);
-                        } else if (!f_u.includes('u')) {
-                            pangkat = 0; // Hanya konstanta
-                        }
-                        
-                        let pangkatBaru = pangkat + 1;
-                        let koefNum = isNaN(koef) ? 1 : parseFloat(koef);
-                        let koefBaru = koefNum / pangkatBaru;
-                        
-                        if (pangkat === 0) {
-                            hasilAkhirTeks = `${koefNum === 1 ? '' : koefNum}${latexUAsli}`;
-                        } else {
-                            if (Number.isInteger(koefBaru)) {
-                                hasilAkhirTeks = `${koefBaru === 1 ? '' : (koefBaru === -1 ? '-' : koefBaru)}(${latexUAsli})^{${pangkatBaru}}`;
-                            } else {
-                                hasilAkhirTeks = `\\frac{${koefNum}}{${pangkatBaru}} (${latexUAsli})^{${pangkatBaru}}`;
-                            }
-                        }
-                    } catch(e) {
-                        hasilAkhirTeks = `\\int ${sisaULatex} \\, du \\Big|_{u=${latexUAsli}}`;
-                    }
-                }
-
-                document.getElementById('langkah-langkah').innerHTML = langkahHtml;
-                document.getElementById('hasil-akhir').innerHTML = `$$${hasilAkhirTeks} + C$$`;
-
-                // Render ulang MathJax agar memproses teks baru menjadi simbol matematika indah
-                if (window.MathJax && window.MathJax.typeset) {
-                    window.MathJax.typeset();
-                }
-
-            } catch (error) {
-                alert("Terjadi kesalahan parsing matematika. Pastikan penulisan rumus sudah benar sesuai panduan info box.\nError: " + error.message);
-            }
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
